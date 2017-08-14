@@ -1,0 +1,3 @@
+[core]
+	autocrlf = true
+	excludesfile = C:\\Users\\vicen\\Documents\\gitignore_global.txt
