@@ -1,24 +1,22 @@
 describe('Seller:', function() {
 	var b;
-	var EC = ExpectedConditions;
 
-		beforeEach(function (){
-			browser.ignoreSynchronization = true;
-			b = browser.driver;
-			browser.baseUrl = browser.baseUrl.replace('www', 'manage');
-		});
+	beforeEach(function (){
+		browser.ignoreSynchronization = true;
+		b = browser.driver;
+	});
 
+	describe("Download presentation PDF - ", function(){
 
-			describe("BeforeTests - ", function(){
-					var hasClass = function (element, cls) {
-						return element.getAttribute('class').then(function (classes) {
-							return classes.split(' ').indexOf(cls) !== -1;
-						});
-					};
+			var hasClass = function (element, cls) {
+				return element.getAttribute('class').then(function (classes) {
+					return classes.split(' ').indexOf(cls) !== -1;
+				});
+			};
 
 						it('should load login page', function(){
 								browser.manage().deleteAllCookies();
-								b.get(browser.baseUrl + '/login');
+								b.get('https://manage.brandboom.us/login');
 								expect(b.getTitle()).toEqual("Brandboom | Brand Login");
 							});
 
@@ -37,38 +35,37 @@ describe('Seller:', function() {
 							});
 
 						it('should go to showroom', function(){
-			        	b.wait(EC.visibilityOf(element(by.css("#main-header-left"))), 5000);
+			        	b.wait(ExpectedConditions.visibilityOf(element(by.css("#main-header-left"))), 5000);
 			        	element(by.css("#main-header-left")).click();
 
-			        	b.wait(EC.visibilityOf(element(by.css('#showroom_33178'))), 5000);
+
+
+			        	b.wait(ExpectedConditions.visibilityOf(element(by.css('#showroom_33178'))), 5000);
 			        	element(by.css("#showroom_33178")).click();
 							});
-						});
 
-
-			describe("Download presentation PDF -", function(){
 
 						it('should open presentation', function(){
 								var presentation = element.all(by.xpath('.//*[.="presentationPDF"]')).first();
-								b.wait(EC.visibilityOf(presentation), 5000);
+								b.wait(ExpectedConditions.visibilityOf(presentation), 5000);
 								presentation.click();
-							});
+			    		});
 
-			    	it('should open PDF settings', function(){
+
+			    	it('should download PDF', function(){
 								//wait for products to be visible
 								var productBlock = element(by.css(".products-block.clearfix.ui-sortable"));
-								b.wait(EC.elementToBeClickable(productBlock), 5000);
+								b.wait(ExpectedConditions.elementToBeClickable(productBlock), 5000);
 
 								var pdfPage = element(by.css("button.pdf-button.btn.btn-xs.btn-primary"));
-								b.wait(EC.elementToBeClickable(pdfPage), 5000);
+								b.wait(ExpectedConditions.elementToBeClickable(pdfPage), 5000);
 								pdfPage.click();
-							});
 
-						it('should download PDF', function(){
 								var pdfDownload = element(by.css("#download-pdf-bn"));
-								b.wait(EC.elementToBeClickable(pdfDownload), 5000);
+								b.wait(ExpectedConditions.elementToBeClickable(pdfDownload), 5000);
 								pdfDownload.click();
 							});
+
 
 			    	it("should close the first tab and load PDF", function() {
 			    			browser.getAllWindowHandles().then(function (handles) {
@@ -79,6 +76,6 @@ describe('Seller:', function() {
 			        	// close PDF and switch to main tab
 			        	browser.switchTo().window(handles[0]);
 			        });
-		        });
-					});
-				});
+			        });
+			});
+		});

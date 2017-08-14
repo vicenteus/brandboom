@@ -4,7 +4,6 @@ describe('Google Login:', function() {
 	beforeEach(function (){
 		browser.ignoreSynchronization = true;
 		b = browser.driver;
-		browser.baseUrl = browser.baseUrl.replace('www', 'manage');
 	});
 
 
